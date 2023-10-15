@@ -2239,8 +2239,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScrollable = textFieldContext.scroller;
-    final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
@@ -2250,15 +2251,15 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (scrollable == null && textFieldScrollable.maxScrollExtent == 0) {
+    if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (textFieldScrollable.scrollOffset > 0) {
-      textFieldScrollable.animateTo(
+    if (textFieldScroller.scrollOffset > 0) {
+      textFieldScroller.animateTo(
         max(
-          textFieldScrollable.scrollOffset - textFieldScrollable.viewportDimension,
-          textFieldScrollable.minScrollExtent,
+          textFieldScroller.scrollOffset - textFieldScroller.viewportDimension,
+          textFieldScroller.minScrollExtent,
         ),
         duration: const Duration(milliseconds: 150),
         curve: Curves.decelerate,
@@ -2266,12 +2267,12 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (scrollable == null) {
+    if (ancestorScrollable == null) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    scrollable.animateTo(
-      max(scrollable.pixels - scrollable.viewportDimension, scrollable.minScrollExtent),
+    ancestorScrollable.animateTo(
+      max(ancestorScrollable.pixels - ancestorScrollable.viewportDimension, ancestorScrollable.minScrollExtent),
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
@@ -2283,9 +2284,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScrollable = textFieldContext.scroller;
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
 
-    final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
@@ -2295,15 +2297,15 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (scrollable == null && textFieldScrollable.maxScrollExtent == 0) {
+    if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (textFieldScrollable.scrollOffset < textFieldScrollable.maxScrollExtent) {
-      textFieldScrollable.animateTo(
+    if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
+      textFieldScroller.animateTo(
         min(
-          textFieldScrollable.scrollOffset + textFieldScrollable.viewportDimension,
-          textFieldScrollable.maxScrollExtent,
+          textFieldScroller.scrollOffset + textFieldScroller.viewportDimension,
+          textFieldScroller.maxScrollExtent,
         ),
         duration: const Duration(milliseconds: 150),
         curve: Curves.decelerate,
@@ -2311,12 +2313,12 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (scrollable == null) {
+    if (ancestorScrollable == null) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    scrollable.animateTo(
-      min(scrollable.pixels + scrollable.viewportDimension, scrollable.maxScrollExtent),
+    ancestorScrollable.animateTo(
+      min(ancestorScrollable.pixels + ancestorScrollable.viewportDimension, ancestorScrollable.maxScrollExtent),
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
@@ -2328,8 +2330,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScrollable = textFieldContext.scroller;
-    final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
@@ -2349,13 +2352,13 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (scrollable == null && textFieldScrollable.maxScrollExtent == 0) {
+    if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (textFieldScrollable.scrollOffset > 0) {
-      textFieldScrollable.animateTo(
-        textFieldScrollable.minScrollExtent,
+    if (textFieldScroller.scrollOffset > 0) {
+      textFieldScroller.animateTo(
+        textFieldScroller.minScrollExtent,
         duration: const Duration(milliseconds: 150),
         curve: Curves.decelerate,
       );
@@ -2363,12 +2366,12 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (scrollable == null) {
+    if (ancestorScrollable == null) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    scrollable.animateTo(
-      scrollable.minScrollExtent,
+    ancestorScrollable.animateTo(
+      ancestorScrollable.minScrollExtent,
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
@@ -2380,9 +2383,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScrollable = textFieldContext.scroller;
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
 
-    final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
@@ -2402,13 +2406,13 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (scrollable == null && textFieldScrollable.maxScrollExtent == 0) {
+    if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (textFieldScrollable.scrollOffset < textFieldScrollable.maxScrollExtent) {
-      textFieldScrollable.animateTo(
-        textFieldScrollable.maxScrollExtent,
+    if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
+      textFieldScroller.animateTo(
+        textFieldScroller.maxScrollExtent,
         duration: const Duration(milliseconds: 150),
         curve: Curves.decelerate,
       );
@@ -2416,17 +2420,17 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (scrollable == null) {
+    if (ancestorScrollable == null) {
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    if (!scrollable.maxScrollExtent.isFinite) {
+    if (!ancestorScrollable.maxScrollExtent.isFinite) {
       // Can't scroll to infinity, but we technically handled the task.
       return TextFieldKeyboardHandlerResult.handled;
     }
 
-    scrollable.animateTo(
-      scrollable.maxScrollExtent,
+    ancestorScrollable.animateTo(
+      ancestorScrollable.maxScrollExtent,
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
@@ -2826,13 +2830,28 @@ void _deleteToEndOfLine({
 void _scrollToBeginningOfDocument({
   required SuperTextFieldContext textFieldContext,
 }) {
-  final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+  final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+  final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  if (scrollable == null) {
+  if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
     return;
   }
-  scrollable.animateTo(
-    scrollable.minScrollExtent,
+
+  if (textFieldScroller.scrollOffset > 0) {
+    textFieldScroller.animateTo(
+      textFieldScroller.minScrollExtent,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.decelerate,
+    );
+
+    return;
+  }
+
+  if (ancestorScrollable == null) {
+    return;
+  }
+  ancestorScrollable.animateTo(
+    ancestorScrollable.minScrollExtent,
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
@@ -2841,19 +2860,34 @@ void _scrollToBeginningOfDocument({
 void _scrollToEndOfDocument({
   required SuperTextFieldContext textFieldContext,
 }) {
-  final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+  final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+  final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  if (scrollable == null) {
+  if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
     return;
   }
 
-  if (!scrollable.maxScrollExtent.isFinite) {
+  if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
+    textFieldScroller.animateTo(
+      textFieldScroller.maxScrollExtent,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.decelerate,
+    );
+
+    return;
+  }
+
+  if (ancestorScrollable == null) {
+    return;
+  }
+
+  if (!ancestorScrollable.maxScrollExtent.isFinite) {
     // Can't scroll to infinity, but we technically handled the task.
     return;
   }
 
-  scrollable.animateTo(
-    scrollable.maxScrollExtent,
+  ancestorScrollable.animateTo(
+    ancestorScrollable.maxScrollExtent,
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
@@ -2862,14 +2896,31 @@ void _scrollToEndOfDocument({
 void _scrollPageUp({
   required SuperTextFieldContext textFieldContext,
 }) {
-  final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+  final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+  final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  if (scrollable == null) {
+  if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
     return;
   }
 
-  scrollable.animateTo(
-    max(scrollable.pixels - scrollable.viewportDimension, scrollable.minScrollExtent),
+  if (textFieldScroller.scrollOffset > 0) {
+    textFieldScroller.animateTo(
+      max(
+        textFieldScroller.scrollOffset - textFieldScroller.viewportDimension,
+        textFieldScroller.minScrollExtent,
+      ),
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.decelerate,
+    );
+    return;
+  }
+
+  if (ancestorScrollable == null) {
+    return;
+  }
+
+  ancestorScrollable.animateTo(
+    max(ancestorScrollable.pixels - ancestorScrollable.viewportDimension, ancestorScrollable.minScrollExtent),
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
@@ -2878,14 +2929,31 @@ void _scrollPageUp({
 void _scrollPageDown({
   required SuperTextFieldContext textFieldContext,
 }) {
-  final ScrollPosition? scrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
+  final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+  final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  if (scrollable == null) {
+  if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
     return;
   }
 
-  scrollable.animateTo(
-    min(scrollable.pixels + scrollable.viewportDimension, scrollable.maxScrollExtent),
+  if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
+    textFieldScroller.animateTo(
+      min(
+        textFieldScroller.scrollOffset + textFieldScroller.viewportDimension,
+        textFieldScroller.maxScrollExtent,
+      ),
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.decelerate,
+    );
+    return;
+  }
+
+  if (ancestorScrollable == null) {
+    return;
+  }
+
+  ancestorScrollable.animateTo(
+    min(ancestorScrollable.pixels + ancestorScrollable.viewportDimension, ancestorScrollable.maxScrollExtent),
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
