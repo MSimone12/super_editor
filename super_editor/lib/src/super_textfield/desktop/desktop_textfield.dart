@@ -2242,10 +2242,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2253,6 +2249,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (keyEvent.logicalKey.keyId != LogicalKeyboardKey.pageUp.keyId) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
@@ -2287,11 +2287,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2299,6 +2294,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (keyEvent.logicalKey.keyId != LogicalKeyboardKey.pageDown.keyId) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
@@ -2333,10 +2332,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2354,6 +2349,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (!isMacOrIos && !keyEvent.isControlPressed) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
@@ -2386,11 +2385,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2398,7 +2392,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (keyEvent.logicalKey != LogicalKeyboardKey.end) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
-
     final isMacOrIos = defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.iOS;
 
     if (isMacOrIos && !keyEvent.isMetaPressed) {
@@ -2408,6 +2401,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (!isMacOrIos && !keyEvent.isControlPressed) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
@@ -2445,10 +2442,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2460,6 +2453,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (defaultTargetPlatform != TargetPlatform.macOS && !isWeb) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
@@ -2492,11 +2489,6 @@ class DefaultSuperTextFieldKeyboardHandlers {
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
-    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
-
-    final ScrollPosition? ancestorScrollable =
-        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
-
     if (keyEvent is! RawKeyDownEvent) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
@@ -2508,6 +2500,10 @@ class DefaultSuperTextFieldKeyboardHandlers {
     if (defaultTargetPlatform != TargetPlatform.macOS && !isWeb) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
+
+    final TextFieldScroller textFieldScroller = textFieldContext.scroller;
+    final ScrollPosition? ancestorScrollable =
+        _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
     if (ancestorScrollable == null && textFieldScroller.maxScrollExtent == 0) {
       return TextFieldKeyboardHandlerResult.handled;
