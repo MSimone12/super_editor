@@ -1743,7 +1743,7 @@ TextFieldKeyboardHandler ignoreTextFieldKeyCombos(List<ShortcutActivator> keys) 
 /// );
 /// ```
 const defaultTextFieldKeyboardHandlers = <TextFieldKeyboardHandler>[
-  DefaultSuperTextFieldKeyboardHandlers.scrollOnPageUpKey,
+  DefaultSuperTextFieldKeyboardHandlers.scrollOnPageUp,
   DefaultSuperTextFieldKeyboardHandlers.scrollOnPageDown,
   DefaultSuperTextFieldKeyboardHandlers.scrollToBeginningOfDocumentOnCtrlOrCmdAndHome,
   DefaultSuperTextFieldKeyboardHandlers.scrollToEndOfDocumentOnCtrlOrCmdAndEnd,
@@ -1795,7 +1795,7 @@ const defaultTextFieldImeKeyboardHandlers = <TextFieldKeyboardHandler>[
   // handlers, passing the key combo to the OS on Mac. Place all custom Mac key
   // combos above this handler.
   DefaultSuperTextFieldKeyboardHandlers.sendKeyEventToMacOs,
-  DefaultSuperTextFieldKeyboardHandlers.scrollOnPageUpKey,
+  DefaultSuperTextFieldKeyboardHandlers.scrollOnPageUp,
   DefaultSuperTextFieldKeyboardHandlers.scrollOnPageDown,
   DefaultSuperTextFieldKeyboardHandlers.scrollToBeginningOfDocumentOnCtrlOrCmdAndHome,
   DefaultSuperTextFieldKeyboardHandlers.scrollToEndOfDocumentOnCtrlOrCmdAndEnd,
@@ -2238,7 +2238,7 @@ class DefaultSuperTextFieldKeyboardHandlers {
     return TextFieldKeyboardHandlerResult.notHandled;
   }
 
-  static TextFieldKeyboardHandlerResult scrollOnPageUpKey({
+  static TextFieldKeyboardHandlerResult scrollOnPageUp({
     required SuperTextFieldContext textFieldContext,
     required RawKeyEvent keyEvent,
   }) {
@@ -2246,7 +2246,7 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (keyEvent.logicalKey.keyId != LogicalKeyboardKey.pageUp.keyId) {
+    if (keyEvent.logicalKey != LogicalKeyboardKey.pageUp) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
@@ -2291,7 +2291,7 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    if (keyEvent.logicalKey.keyId != LogicalKeyboardKey.pageDown.keyId) {
+    if (keyEvent.logicalKey != LogicalKeyboardKey.pageDown) {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
