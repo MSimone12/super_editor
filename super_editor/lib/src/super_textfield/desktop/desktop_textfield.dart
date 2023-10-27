@@ -2250,9 +2250,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollPageUp(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollPageUp(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   static TextFieldKeyboardHandlerResult scrollOnPageDown({
@@ -2267,9 +2267,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollPageDown(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollPageDown(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   static TextFieldKeyboardHandlerResult scrollToBeginningOfDocumentOnCtrlOrCmdAndHome({
@@ -2294,9 +2294,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollToBeginningOfDocument(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollToBeginningOfDocument(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   static TextFieldKeyboardHandlerResult scrollToEndOfDocumentOnCtrlOrCmdAndEnd({
@@ -2320,9 +2320,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollToEndOfDocument(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollToEndOfDocument(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   static TextFieldKeyboardHandlerResult scrollToBeginningOfDocumentOnHomeOnMacOrWeb({
@@ -2341,9 +2341,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollToBeginningOfDocument(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollToBeginningOfDocument(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   static TextFieldKeyboardHandlerResult scrollToEndOfDocumentOnEndOnMacOrWeb({
@@ -2362,9 +2362,9 @@ class DefaultSuperTextFieldKeyboardHandlers {
       return TextFieldKeyboardHandlerResult.notHandled;
     }
 
-    _scrollToEndOfDocument(textFieldContext: textFieldContext);
+    final bool scrolled = _scrollToEndOfDocument(textFieldContext: textFieldContext);
 
-    return TextFieldKeyboardHandlerResult.handled;
+    return scrolled ? TextFieldKeyboardHandlerResult.handled : TextFieldKeyboardHandlerResult.notHandled;
   }
 
   /// Halt execution of the current key event if the key pressed is one of
@@ -2756,7 +2756,15 @@ void _deleteToEndOfLine({
   textFieldContext.controller.deleteTextOnLineAfterCaret(textLayout: textFieldContext.getTextLayout());
 }
 
-void _scrollToBeginningOfDocument({
+/// Scrolls to the top of the textfield.
+///
+/// In absence of scrollable content within textfield, tries to scroll the ancestor
+/// scrollable to its top.
+///
+/// Returns `true` if the scroll was performed, `false` otherwise to give other
+/// key handlers opportunity to handle the key event if we didn't took
+/// any action.
+bool _scrollToBeginningOfDocument({
   required SuperTextFieldContext textFieldContext,
 }) {
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
@@ -2765,7 +2773,7 @@ void _scrollToBeginningOfDocument({
   // No scrollable content within `SuperDesktopField` and ancestor scrollable
   // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   if (textFieldScroller.scrollOffset > 0) {
@@ -2775,12 +2783,12 @@ void _scrollToBeginningOfDocument({
       curve: Curves.decelerate,
     );
 
-    return;
+    return true;
   }
 
   // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   ancestorScrollable.animateTo(
@@ -2788,9 +2796,19 @@ void _scrollToBeginningOfDocument({
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
+
+  return true;
 }
 
-void _scrollToEndOfDocument({
+/// Scrolls to the end of the textfield.
+///
+/// In absence of scrollable content within textfield, tries to scroll the ancestor
+/// scrollable to its end.
+///
+/// Returns `true` if the scroll was performed, `false` otherwise to give other
+/// key handlers opportunity to handle the key event if we didn't took
+/// any action.
+bool _scrollToEndOfDocument({
   required SuperTextFieldContext textFieldContext,
 }) {
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
@@ -2799,7 +2817,7 @@ void _scrollToEndOfDocument({
   // No scrollable content within `SuperDesktopField` and ancestor scrollable
   // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
@@ -2809,17 +2827,17 @@ void _scrollToEndOfDocument({
       curve: Curves.decelerate,
     );
 
-    return;
+    return true;
   }
 
   // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   if (!ancestorScrollable.maxScrollExtent.isFinite) {
     // Can't scroll to infinity, but we technically handled the task.
-    return;
+    return false;
   }
 
   ancestorScrollable.animateTo(
@@ -2827,9 +2845,19 @@ void _scrollToEndOfDocument({
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
+
+  return true;
 }
 
-void _scrollPageUp({
+/// Scrolls up textfield by viewport height.
+///
+/// In absence of scrollable content within textfield, tries to scroll the ancestor
+/// scrollable up by its viewport height.
+///
+/// Returns `true` if the scroll was performed, `false` otherwise to give other
+/// key handlers opportunity to handle the key event if we didn't took
+/// any action.
+bool _scrollPageUp({
   required SuperTextFieldContext textFieldContext,
 }) {
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
@@ -2838,7 +2866,7 @@ void _scrollPageUp({
   // No scrollable content within `SuperDesktopField` and ancestor scrollable
   // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   if (textFieldScroller.scrollOffset > 0) {
@@ -2850,12 +2878,12 @@ void _scrollPageUp({
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
-    return;
+    return true;
   }
 
   // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   ancestorScrollable.animateTo(
@@ -2863,9 +2891,19 @@ void _scrollPageUp({
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
+
+  return true;
 }
 
-void _scrollPageDown({
+/// Scrolls down textfield by viewport height.
+///
+/// In absence of scrollable content within textfield, tries to scroll the ancestor
+/// scrollable down by its viewport height.
+///
+/// Returns `true` if the scroll was performed, `false` otherwise to give other
+/// key handlers opportunity to handle the key event if we didn't took
+/// any action.
+bool _scrollPageDown({
   required SuperTextFieldContext textFieldContext,
 }) {
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
@@ -2874,7 +2912,7 @@ void _scrollPageDown({
   // No scrollable content within `SuperDesktopField` and ancestor scrollable
   // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   if (textFieldScroller.scrollOffset < textFieldScroller.maxScrollExtent) {
@@ -2886,12 +2924,12 @@ void _scrollPageDown({
       duration: const Duration(milliseconds: 150),
       curve: Curves.decelerate,
     );
-    return;
+    return true;
   }
 
   // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
-    return;
+    return false;
   }
 
   ancestorScrollable.animateTo(
@@ -2899,6 +2937,8 @@ void _scrollPageDown({
     duration: const Duration(milliseconds: 150),
     curve: Curves.decelerate,
   );
+
+  return true;
 }
 
 ScrollableState? _findAncestorScrollable(BuildContext context) {
