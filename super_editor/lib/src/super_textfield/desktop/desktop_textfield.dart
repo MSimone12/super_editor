@@ -2770,9 +2770,9 @@ bool _scrollToBeginningOfDocument({
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
   final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  // No scrollable content within `SuperDesktopField` and ancestor scrollable
-  // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
+    // No scrollable content within `SuperDesktopField` and ancestor scrollable
+    // is absent, give other handlers opportunity to handle the key event.
     return false;
   }
 
@@ -2786,8 +2786,9 @@ bool _scrollToBeginningOfDocument({
     return true;
   }
 
-  // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
+    // Ancestor scrollable is absent, give other handlers opportunity
+    // to handle to the key event.
     return false;
   }
 
@@ -2814,9 +2815,9 @@ bool _scrollToEndOfDocument({
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
   final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  // No scrollable content within `SuperDesktopField` and ancestor scrollable
-  // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
+    // No scrollable content within `SuperDesktopField` and ancestor scrollable
+    // is absent, give other handlers opportunity to handle the key event.
     return false;
   }
 
@@ -2830,8 +2831,9 @@ bool _scrollToEndOfDocument({
     return true;
   }
 
-  // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
+    // Ancestor scrollable is absent, give other handlers opportunity
+    // to handle to the key event.
     return false;
   }
 
@@ -2863,9 +2865,9 @@ bool _scrollPageUp({
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
   final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  // No scrollable content within `SuperDesktopField` and ancestor scrollable
-  // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
+    // No scrollable content within `SuperDesktopField` and ancestor scrollable
+    // is absent, give other handlers opportunity to handle the key event.
     return false;
   }
 
@@ -2881,8 +2883,9 @@ bool _scrollPageUp({
     return true;
   }
 
-  // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
+    // Ancestor scrollable is absent, give other handlers opportunity
+    // to handle to the key event.
     return false;
   }
 
@@ -2909,9 +2912,9 @@ bool _scrollPageDown({
   final TextFieldScroller textFieldScroller = textFieldContext.scroller;
   final ScrollPosition? ancestorScrollable = _findAncestorScrollable(textFieldContext.textFieldBuildContext)?.position;
 
-  // No scrollable content within `SuperDesktopField` and ancestor scrollable
-  // is absent, but we technically handled the task.
   if (textFieldScroller.maxScrollExtent == 0 && ancestorScrollable == null) {
+    // No scrollable content within `SuperDesktopField` and ancestor scrollable
+    // is absent, give other handlers opportunity to handle the key event.
     return false;
   }
 
@@ -2927,8 +2930,9 @@ bool _scrollPageDown({
     return true;
   }
 
-  // Ancestor scrollable is absent, but we technically handled the task.
   if (ancestorScrollable == null) {
+    // Ancestor scrollable is absent, give other handlers opportunity
+    // to handle to the key event.
     return false;
   }
 
